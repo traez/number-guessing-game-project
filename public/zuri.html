@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Self-Taught Bootcamp</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-scrimba.ico"
+    />
+    <link rel="stylesheet" type="text/css" href="zuri.css" />
+  </head>
+  <!-- 
+Test 30
+-->
+  <body>
+    <main>
+      <header>
+        <h1>Number Guessing Game</h1>
+        <img src="./images/machine-man.png" id="machine-man" alt="" />
+        <h2>
+          The computer has chosen a random number between 1 and 99 inclusive
+        </h2>
+        <h3>
+          Are you smarter than AI? You have 7 attempts to guess right and prove
+          so.
+        </h3>
+      </header>
+      <section>
+        <article>
+          <h4>Guess a number</h4>
+          <form>
+            <input placeholder="00" />
+            <button type="button" id="submit">Submit guess</button>
+          </form>
+          <div id="dmn">
+            <menu>
+              <li id="previous">Previous Guesses:</li>
+              <li id="previous-g">00 00 00 00 00 00 00</li>
+            </menu>
+            <nav>
+              <strong>Guesses Remaining:</strong>
+              <small>7</small>
+            </nav>
+          </div>
+        </article>
+        <aside>
+          <div id="feedback">
+            Number guessed <span>too High!</span> Try again!
+          </div>
+          <!--      <div id="feedback">Number guessed<span>too low!</span>Try again!</div> 
+          <div id="feedback">Congratulations! You guessed correctly, with <span>X</span>tries!</div>
+          <div id="feedback">Game Over! Chosen number was <span>99</span>You guessed wrongly.</div> -->
+          <button type="button" id="start">Start New Game</button>
+        </aside>
+      </section>
+
+      <footer>
+        <h5>©2023 Designed by Trae Zeeofor</h5>
+        <h6>
+          <a
+            href="https://github.com/traez/number-guessing-game-project"
+            target="_blank"
+            >(Number Guessing Game Project)</a
+          >
+        </h6>
+      </footer>
+    </main>
+
+    <script src="zuri.js"></script>
+  </body>
+</html>

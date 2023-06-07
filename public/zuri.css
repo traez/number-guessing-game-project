@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
 /* 
-- Mobile: 375px ;  Desktop: 1440px (My laptop 1920px)
+- Mobile: 375px 
+- Desktop: 1440px (My laptop 1920px)
+500px, 600px, 700px, 800px, 900px, 1000px
 */
 /* Global  */
 :root {
@@ -141,14 +143,13 @@ input {
   border: 3px solid var(--black);
   border-radius: 0.2rem;
   padding: 0.3rem;
-  width: 35%;
+  width: 40%;
   background-color: var(--grayish-blue);
   color: var(--very-dark-blue);
   font-weight: bolder;
 }
 #submit:hover {
   cursor: pointer;
-  background-color:  hsl(220, 14%, 55%);;
 }
 #dmn {
   height: 100%;
@@ -196,9 +197,8 @@ aside {
   font-size: 0.9rem;
   font-weight: bolder;
 }
-.effect {
+#feedback:hover {
   box-shadow: 0 0 10px 5px var(--orange);
-  transition: box-shadow 3s;
 }
 span {
   color: var(--white);
@@ -206,7 +206,7 @@ span {
 #start {
   background-color: var(--orange);
   color: var(--white);
-  width: 90%;
+  width: 100%;
   border: 3px solid var(--black);
   border-radius: 0.2rem;
   padding: 0.3rem;
@@ -214,7 +214,6 @@ span {
 }
 #start:hover {
   cursor: pointer;
-  background-color: hsl(26, 100%, 35%);
 }
 /* Footer */
 footer {
@@ -233,18 +232,11 @@ footer {
 a {
   color: hsl(217, 56%, 48%);
 }
-h6:hover {
-  transform: scale(1.05);
-}
 h5 {
   font-size: 0.9rem;
 }
 h6 {
   font-size: 0.9rem;
-}
-button:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
 }
 /* Media Queries */
 
@@ -267,35 +259,17 @@ button:hover {
   main {
     width: 760px;
     grid-template: 8fr 1fr / 1fr 1fr;
-    grid-template-areas:
-      "left up"
-      "left down";
+    grid-template-areas: 
+    "left up"
+    "left down";
   }
-  header {
-    grid-area: left;
-  }
-  section {
-    grid-area: up;
-  }
-  footer {
-    grid-area: down;
-  }
+header{
+  grid-area: left;
 }
-@media (min-width: 1000px) {
-  main {
-    width: 950px;
-    grid-template: 8fr 1fr / 1fr 1fr;
-    grid-template-areas:
-      "left up"
-      "left down";
-  }
-  header {
-    grid-area: left;
-  }
-  section {
-    grid-area: up;
-  }
-  footer {
-    grid-area: down;
-  }
+section{
+  grid-area: up;
+}
+footer{
+  grid-area: down;
+}
 }

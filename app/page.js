@@ -1,95 +1,113 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Section from "./components/Section";
+import Footer from "./components/Footer";
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * (100 - 1) + 1);
+}
 
 export default function Home() {
+  const [numTyped, setNumTyped] = useState("");
+  const [randomNum, setRandomNum] = useState(generateRandomNumber());
+  const [array, setArray] = useState([]);
+  const [remainNum, setRemainNum] = useState(7);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [checkGuessOutcome, setCheckGuessOutcome] = useState("nil");
+  const [applyEffect, setApplyEffect] = useState(false);
+
+  function handleChange(event) {
+    const { value } = event.target;
+    const twoDigitValue = value.slice(0, 2);
+    setNumTyped(twoDigitValue);
+  }
+
+  function disableButton() {
+    setButtonDisabled(true);
+  }
+
+  function arrayPush() {
+    if (array.length < 7) {
+      setArray((prevArray) => [...prevArray, numTyped]);
+    } else {
+      disableButton();
+    }
+  }
+
+  function populateRemain() {
+    setRemainNum(7 - array.length);
+  }
+
+  function checkGuess() {
+    const last = Number(array[array.length - 1]);
+    if (array.length === 7 && last !== randomNum) {
+      setCheckGuessOutcome("lose");
+    } else if (last === randomNum) {
+      setCheckGuessOutcome("win");
+      disableButton();
+    } else if (last < randomNum) {
+      setCheckGuessOutcome("low");
+    } else if (last > randomNum) {
+      setCheckGuessOutcome("high");
+    }
+  }
+
+  useEffect(() => {
+    populateRemain();
+    checkGuess();
+
+    if (checkGuessOutcome === "win") {
+      disableButton();
+    }
+
+    setApplyEffect(true);
+
+    const timer = setTimeout(() => {
+      setApplyEffect(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [array, checkGuessOutcome, remainNum]);
+
+  function handleClick() {
+    if (numTyped) {
+      arrayPush();
+      populateRemain();
+      checkGuess();
+      console.log(randomNum);
+    }
+    setNumTyped("");
+    if (array.length === 6) {
+      disableButton();
+    }
+  }
+
+  function startNew() {
+    setNumTyped("");
+    setArray([]);
+    setRemainNum(7);
+    setButtonDisabled(false);
+    setCheckGuessOutcome("nil");
+    setRandomNum(generateRandomNumber());
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main>
+      <Header />
+      <Section
+        onChangeFunc={handleChange}
+        onClickFunc={handleClick}
+        inputDigits={numTyped}
+        disabled={isButtonDisabled}
+        array={array}
+        remainNum={remainNum}
+        checkGuessOutcome={checkGuessOutcome}
+        randomNum={randomNum}
+        onClickStartFunc={startNew}
+        applyEffect={applyEffect}
+      />
+      <Footer />
     </main>
-  )
+  );
 }
